@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "990683823642",
+    "project_id": "chatapp-7c816",
+    "storage_bucket": "chatapp-7c816.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990683823642:android:345fb673263b3f44e49ba3",
+        "android_client_info": {
+          "package_name": "com.burcaliahmadov.groupchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990683823642-akvdvg7k59lsqnmg7ap3hgbqb65lqucp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXc9Ge55VEU6Mi_2m43rp3b4BTs7panEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990683823642-akvdvg7k59lsqnmg7ap3hgbqb65lqucp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
