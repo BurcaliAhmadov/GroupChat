@@ -14,11 +14,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.burcaliahmadov.groupchat.MainActivity
 import com.burcaliahmadov.groupchat.databinding.ActivityProfileBinding
+import com.burcaliahmadov.groupchat.model.UserModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -75,8 +78,32 @@ class ProfileActivity : AppCompatActivity() {
 
     }
     private fun uploadData(){
-
+        val uuid=UUID.randomUUID()
+        val imagname="$uuid.jpg"
+        val reference =storage.reference.child("Profile").child(imagname)
+        reference.putFile(selectedImg).addOnSuccessListener {
+            reference.downloadUrl.addOnSuccessListener {uri->
+                uploadInfo(uri.toString())
+            }
+            }.addOnFailureListener {
+            Toast.makeText(this@ProfileActivity, "${it.localizedMessage}", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
+
+    private fun uploadInfo(imageUrl: String) {
+        val user =UserModel(auth.uid.toString(),binding.username.text.toString(),
+            auth.currentUser?.phoneNumber.toString()!!,imageUrl)
+            database.reference.child("user").child(auth.uid.toString()).setValue(user)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@ProfileActivity,MainActivity::class.java))
+                    finish()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "${it.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+    }
+
 
 
     fun registerLauncher(){
