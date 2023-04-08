@@ -39,15 +39,19 @@ class ChatFragment : Fragment() {
         database.reference.child("user")
             .addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    userList.clear()
+                    //userList.clear()
                     for(snapshot1 in snapshot.children){
+
                         val user=snapshot1.getValue(UserModel::class.java)
                         if(user!!.uId!=FirebaseAuth.getInstance().uid){
                             userList.add(user)
+                            println(user.name+user.number)
                         }
                     }
-                    //binding.userListRecyeclerView.layoutManager= LinearLayoutManager (requireContext())
-                    binding.userListRecyeclerView.adapter=ChatAdapter(requireContext(),userList)
+                    val adapter=ChatAdapter(requireContext(),userList)
+                    adapter!!.notifyDataSetChanged()
+                    binding.userListRecyeclerView.layoutManager= LinearLayoutManager (requireContext())
+                    binding.userListRecyeclerView.adapter=adapter
 
                 }
 

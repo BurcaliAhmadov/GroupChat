@@ -1,12 +1,14 @@
 package com.burcaliahmadov.groupchat.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.burcaliahmadov.groupchat.activity.ChatActivity
 import com.burcaliahmadov.groupchat.databinding.ChatUserItemBinding
 import com.burcaliahmadov.groupchat.model.UserModel
 
@@ -30,5 +32,10 @@ class ChatAdapter(var context: Context,var list:ArrayList<UserModel>): RecyclerV
         val user=list[position]
         Glide.with(context).load(user.imgUrl).into(holder.binding.userImage)
         holder.binding.username.text=user.name
+        holder.itemView.setOnClickListener {
+            val intent= Intent(context,ChatActivity::class.java)
+            intent.putExtra("uid",user.uId)
+            context.startActivity(intent)
+        }
     }
 }

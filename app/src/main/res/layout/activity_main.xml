@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#AFD6BE"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <com.google.android.material.appbar.AppBarLayout
@@ -21,6 +22,7 @@
             </TextView>
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
+            android:background="#82B194"
             android:layout_height="wrap_content"
             android:id="@+id/tabs">
 
@@ -34,7 +36,10 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"></androidx.viewpager.widget.ViewPager>
+
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+    </androidx.viewpager.widget.ViewPager>
 
 
 
