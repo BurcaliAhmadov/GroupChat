@@ -7,6 +7,19 @@
     tools:context=".activity.ChatActivity"
     android:background="@drawable/chatbackgorund">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        tools:listitem="@layout/sent_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <ImageView
         android:id="@+id/sendImage"
         android:layout_width="wrap_content"
@@ -23,12 +36,13 @@
     </ImageView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        app:cardCornerRadius="30dp"
-        android:backgroundTint="#C0F8D5"
-        android:layout_marginBottom="8dp"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#C0F8D5"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sendImage"
         app:layout_constraintStart_toStartOf="parent">
@@ -39,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:padding="8dp"
             android:hint="Enter Your Message"
+            android:padding="8dp"
             android:textSize="14sp">
 
         </EditText>

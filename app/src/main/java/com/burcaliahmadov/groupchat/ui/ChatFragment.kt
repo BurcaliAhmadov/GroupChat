@@ -39,7 +39,7 @@ class ChatFragment : Fragment() {
         database.reference.child("user")
             .addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    //userList.clear()
+                    userList.clear()
                     for(snapshot1 in snapshot.children){
 
                         val user=snapshot1.getValue(UserModel::class.java)

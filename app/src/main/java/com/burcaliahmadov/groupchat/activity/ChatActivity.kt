@@ -3,10 +3,16 @@ package com.burcaliahmadov.groupchat.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.burcaliahmadov.groupchat.adapter.MessageAdapter
 import com.burcaliahmadov.groupchat.databinding.ActivityChatBinding
 import com.burcaliahmadov.groupchat.model.MessageModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
@@ -16,10 +22,12 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var receiverUid:String
     private lateinit var senderRoom:String
     private lateinit var receiverRoom:String
+    private lateinit var list:ArrayList<MessageModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        list= ArrayList()
 
 
         senderUid=FirebaseAuth.getInstance().uid.toString()
@@ -50,6 +58,27 @@ class ChatActivity : AppCompatActivity() {
 
             }
         }
+
+        database.reference.child("chats").child(senderRoom).child("message").addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                list.clear()
+                for(snapshot1 in snapshot.children){
+                    val data=snapshot1.getValue(MessageModel::class.java)
+                    list.add(data!!)
+                    
+                }
+                
+                val adapter=MessageAdapter(this@ChatActivity,list)
+                adapter.notifyDataSetChanged()
+                binding.chatRecyclerview.layoutManager=LinearLayoutManager(this@ChatActivity)
+                binding.chatRecyclerview.adapter=adapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ChatActivity, "Error: $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
 
